@@ -1,0 +1,38 @@
+{
+    "name": "Gonkong anthems",
+    "version": "0.1.1",
+    "description": "Plays music on some website",
+    "permissions": ["storage", "tabs", "activeTab"],
+    "host_permissions": ["https://*.gonkong.me/*"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://*.gonkong.me/*"],
+        "js": ["contentScript.js"]
+        
+      }
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": [
+          "assets/bookmark.png",
+          "assets/TheHeroStory.mp3",
+          "assets/MidnightRider.mp3"
+          
+        ],
+        "matches": ["https://*.gonkong.me/*"]
+      }
+    ],
+    "action": {
+      "default_icon": {
+        "16": "assets/ext-icon.png",
+        "24": "assets/ext-icon.png",
+        "32": "assets/ext-icon.png"
+      },
+      "default_title": "Good morning Gonkong! test",
+      "default_popup": "popup.html"
+    },
+    "manifest_version": 3
+}
