@@ -1,16 +1,14 @@
-// background.js
-
 chrome.runtime.onInstalled.addListener(function() {
   console.log('Gonkong anthems extension installed');
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request.action === 'canCallFunctionToday') {
-    canCallFunctionToday(function (canCall) {
-      sendResponse({ canCall: canCall });
+  if (request.action === 'canPlayRandomMusicToday') {
+    canPlayRandomMusicToday(function(canPlay) {
+      sendResponse({ canPlay: canPlay });
     });
-  } else if (request.action === 'updateLastCallDate') {
-    updateLastCallDate();
+  } else if (request.action === 'updateLastPlayDate') {
+    updateLastPlayDate();
   } else if (request.action === 'playRandomMusic') {
     // Forward the message to the active tab for music playback
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
@@ -22,16 +20,16 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   return true;
 });
 
-function canCallFunctionToday(callback) {
-  chrome.storage.sync.get(['lastCallDate'], function (result) {
-    const lastCallDate = result.lastCallDate;
+function canPlayRandomMusicToday(callback) {
+  chrome.storage.sync.get(['lastPlayDate'], function(result) {
+    const lastPlayDate = result.lastPlayDate;
     const today = new Date().toLocaleDateString();
-    const canCall = lastCallDate !== today;
-    callback(canCall);
+    const canPlay = lastPlayDate !== today;
+    callback(canPlay);
   });
 }
 
-function updateLastCallDate() {
+function updateLastPlayDate() {
   const today = new Date().toLocaleDateString();
-  chrome.storage.sync.set({ 'lastCallDate': today });
+  chrome.storage.sync.set({ 'lastPlayDate': today });
 }
