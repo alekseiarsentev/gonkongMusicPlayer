@@ -1,13 +1,18 @@
-
-/*
-  // Array of your MP3 files
-  const mp3Files = [
-    "assets/TheHeroStory.mp3",
-    "assets/MidnightRider.mp3"
-  ];
-*/
-
 // contentScript.js
+
+function triggerFunction() {
+  chrome.runtime.sendMessage({ action: "canCallFunctionToday" }, function(response) {
+    if (response.canCall) {
+      alert('Function called!');
+      chrome.runtime.sendMessage({ action: "updateLastCallDate" });
+    } else {
+      alert('Function can only be called once a day.');
+    }
+  });
+}
+
+triggerFunction();
+
 let isAudioPlaying = false;
 let audioElement;
 

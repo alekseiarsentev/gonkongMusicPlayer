@@ -7,4 +7,11 @@ document.addEventListener('DOMContentLoaded', function () {
       chrome.tabs.sendMessage(tabs[0].id, { action: 'stopMusic' });
     });
   });
+
+  // Add a click event listener to the "Trigger Function" button
+  document.getElementById('myButton').addEventListener('click', function () {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, { action: "triggerFunction" });
+    });
+  });
 });
