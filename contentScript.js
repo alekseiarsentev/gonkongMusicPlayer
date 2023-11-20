@@ -41,7 +41,7 @@ function playRandomMusic() {
         updateLastPlayDate();
       });
     } else {
-      console.log('Music can only be played only once a day.');
+      console.log('Music can be played only once a day.');
     }
   });
 }
